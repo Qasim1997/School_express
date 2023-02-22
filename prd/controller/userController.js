@@ -46,6 +46,11 @@ _defineProperty(UserContrller, "userRegistration", async (req, res) => {
         });
       } catch (error) {
         console.log(error);
+        if (error.studentId === 'SequelizeValidationError') {
+          console.error('Validation error: ', error.message);
+        } else {
+          console.error('Error: ', error);
+        }
         res.send({
           status: "failed",
           message: "Unable to Register"
@@ -116,10 +121,13 @@ _defineProperty(UserContrller, "userLogin", async (req, res) => {
 });
 _defineProperty(UserContrller, "userLogged", async (req, res) => {
   User.findByPk(req.user.id, {
-    // attributes: { exclude: ["password"] }
+    attributes: {
+      exclude: ["password"]
+    },
     include: [{
       model: Teacher
     }]
+    // exclude: ["password"] 
   }).then(user => {
     console.log(user, 'user--------------');
     if (!user) {
@@ -161,7 +169,7 @@ _defineProperty(UserContrller, "changePassword", async (req, res) => {
     }
   } else {
     res.status(400).json({
-      message: "password & confirmed_password doesj not match"
+      message: "password & confirmed_password does not match"
     });
   }
 });

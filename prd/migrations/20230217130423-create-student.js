@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       contact_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT(11)
       },
       display_name: {
         type: Sequelize.STRING
@@ -32,7 +32,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

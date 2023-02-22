@@ -19,13 +19,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       contact_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT(11)
       },
       image: {
         type: Sequelize.STRING
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

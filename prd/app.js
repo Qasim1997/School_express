@@ -1,26 +1,31 @@
 "use strict";
 
-var _httpErrors = _interopRequireDefault(require("http-errors"));
-var _express = _interopRequireDefault(require("express"));
-var _cors = _interopRequireDefault(require("cors"));
 var _morgan = _interopRequireDefault(require("morgan"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
 var _index = _interopRequireDefault(require("./routes/index"));
 var _users = _interopRequireDefault(require("./routes/users"));
-var _Brother = _interopRequireDefault(require("./class/Brother"));
+var _teacher = _interopRequireDefault(require("./routes/teacher"));
+var _student = _interopRequireDefault(require("./routes/student"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const express = require('express');
+const cors = require('cors');
 _dotenv.default.config();
-var app = (0, _express.default)();
+var app = express();
 app.use((0, _morgan.default)('dev'));
-app.use(_express.default.json());
-app.use(_express.default.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
   extended: false
 }));
 app.use('/', _index.default);
 app.use('/users', _users.default);
-const port = 3000;
-app.use((0, _cors.default)());
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.use('/api/teacher', _teacher.default);
+app.use('/student', _student.default);
+const corsOptions = {
+  origin: 'http://localhost:8000',
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening on port ${process.env.PORT}`);
 });
 module.exports = app;

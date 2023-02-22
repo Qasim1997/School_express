@@ -18,7 +18,10 @@ _defineProperty(UserService, "register", async data => {
     lastName,
     email,
     password,
-    confirmed_password
+    confirmed_password,
+    type,
+    studentId,
+    teacherId
   } = data;
   // this.firstBrother = name;
   const salt = await _bcrypt.default.genSalt(10);
@@ -28,7 +31,12 @@ _defineProperty(UserService, "register", async data => {
     firstName: firstName,
     lastName: lastName,
     email: email,
-    password: hashPassword
+    password: hashPassword,
+    type: type,
+    studentId,
+    studentId,
+    teacherId,
+    teacherId
   });
   await doc.save();
 });

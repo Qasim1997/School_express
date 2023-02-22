@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     display_name: DataTypes.STRING,
     rollnumber: DataTypes.INTEGER,
     image: DataTypes.STRING,
-    address: DataTypes.STRING
+    address: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Student'

@@ -22,13 +22,18 @@ module.exports = {
         type: Sequelize.STRING
       },
       type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+
       },
       teacherId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true,
       },
       studentId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        validate: {
+          notEmpty:true
+        },
       },
       createdAt: {
         allowNull: false,

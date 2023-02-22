@@ -26,6 +26,11 @@ export default class UserContrller {
             res.status(200).json({ status: "success", message: "Registration Success" });
           } catch (error) {
             console.log(error);
+            if (error.studentId === 'SequelizeValidationError') {
+              console.error('Validation error: ', error.message);
+            } else {
+              console.error('Error: ', error);
+            }
             res.send({ status: "failed", message: "Unable to Register" });
           }
       } else {
@@ -84,12 +89,13 @@ export default class UserContrller {
   };
   static userLogged = async (req, res) => {
     User.findByPk(req.user.id, {
-      // attributes: { exclude: ["password"] }
+      attributes: { exclude: ["password"] },
       include: [
         {
           model: Teacher
         }
-      ]
+      ],
+      // exclude: ["password"] 
     })
       .then((user) => {
         console.log(user, 'user--------------')
